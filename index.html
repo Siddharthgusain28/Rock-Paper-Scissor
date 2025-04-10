@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <meta name="description" content="The game Rock, Paper, Scissors is played like this: at the same time, two players display one of three symbols: a rock, paper, or scissors. A rock beats scissors, scissors beat paper by cutting it, and paper beats rock by covering it">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="game">
+            <h1>Rock Paper Scissor</h1>
+            <div class="display">
+                <table>
+                    <tr>
+                        <th> You</th>
+                        <th> Comp</th>
+                    </tr>
+                    <tr>
+                        <td class="you"> You</td>
+                        <td class="comp">Comp</td>
+                    </tr>
+                </table>
+               
+                <div class="counter">
+                    <p><b>You</b> <span class="yourResult">00</span> <b>Comp</b> <span class="compResult">00</span></p>
+                   
+                </div>           
+
+            </div>
+            <div class="button">
+                <p class="result" >Game Result</p>
+                <button class="btn rock" value="Rock">Rock</button>
+                <button class="btn paper" value="Paper">Paper</button>
+                <button class="btn sci" value="Scissor">Scissor</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        "use strict";
+        const choice= function(){
+            const option=["Rock","Paper","Scissor"]
+            const random=Math.floor(Math.random()*3)
+            return option[random]
+        } 
+        let counter=0
+        let counter2=0
+
+        const result=document.querySelector(".result")
+        const yourResult=document.querySelector(".yourResult")
+        const compResult=document.querySelector(".compResult")
+         
+        document.querySelector(".button").addEventListener("click", function(e){
+            const userChoice=e.target.value
+            const computer=choice()
+            if(userChoice===undefined){
+                 document.querySelector(".you").innerHTML=""
+            }
+            else{ 
+                document.querySelector(".you").innerHTML=userChoice;                
+                document.querySelector(".comp").innerHTML=computer;  
+            }
+
+            if(userChoice==computer){
+                result.innerHTML="Game Draw";
+            }
+            else{
+                const winner=function(){
+                    let win=true
+                    if(userChoice=="Rock"){
+                        if(computer=="Paper"){
+                            win=false
+                        }
+                        else if(computer=="Scissor"){
+                            win=true
+                        }
+                    }
+                    if(userChoice=="Paper"){
+                        if(computer=="Rock"){
+                            win=true
+                        }
+                        else if(computer=="Scissor"){
+                            win=false
+                        }
+                    }
+                    if(userChoice=="Scissor"){
+                        if(computer=="Paper"){
+                            win=true
+                        }
+                        else if(computer=="Rock"){
+                            win=false
+                        }
+                    }
+
+                    if(win===true){
+                        result.innerHTML=`"You Win Game" <br> ${userChoice} beats ${computer}`;
+                        // console.log(counter1++)
+                        counter++
+                        yourResult.innerHTML=counter
+                        if(counter<10){
+                            yourResult.innerHTML="0"+counter
+                        }
+                          
+                    }
+                    else if(win===false){
+                        result.innerHTML=`"Comp Win Game" <br> ${computer} beats ${userChoice}`;
+                        counter2++
+                        compResult.innerHTML=counter2
+                        if(counter2<10){
+                            compResult.innerHTML="0"+counter2
+                        }
+                    }
+                }
+                
+                winner()
+            }
+            // result1()
+        }) 
+        
+        // function result1(){
+        //     localStorage.setItem("gameResult",document.querySelector(".counter").innerHTML)
+        // }
+
+        // function getResult(){
+        //     document.querySelector(".counter").innerHTML=localStorage.getItem("gameResult")
+        // }
+        // getResult()
+    </script>
+    
+</body>
+</html>
