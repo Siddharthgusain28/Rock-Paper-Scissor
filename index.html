@@ -18,8 +18,8 @@
                         <th> Comp</th>
                     </tr>
                     <tr>
-                        <td class="you"> You</td>
-                        <td class="comp">Comp</td>
+                        <td class="you ani">👊</td>
+                        <td class="comp anicomp">👊</td>
                     </tr>
                 </table>
                
@@ -31,17 +31,18 @@
             </div>
             <div class="button">
                 <p class="result" >Game Result</p>
-                <button class="btn rock" value="Rock">Rock</button>
-                <button class="btn paper" value="Paper">Paper</button>
-                <button class="btn sci" value="Scissor">Scissor</button>
+                <button class="btn rock" value="👊">👊</button>
+                <button class="btn paper" value="🖐️">🖐️</button>
+                <button class="btn sci" value="✌️">✌️</button>
             </div>
+
         </div>
     </div>
 
     <script>
         "use strict";
         const choice= function(){
-            const option=["Rock","Paper","Scissor"]
+            const option=["👊","🖐️","✌️"]
             const random=Math.floor(Math.random()*3)
             return option[random]
         } 
@@ -51,6 +52,21 @@
         const result=document.querySelector(".result")
         const yourResult=document.querySelector(".yourResult")
         const compResult=document.querySelector(".compResult")
+
+
+        function anim(){
+            document.querySelector(".ani").animate(
+                {transform:['translateY(0)','translateY(55%)','translateY(0)']},
+            {duration:700, iterations:2}
+            )
+            document.querySelector(".anicomp").animate(
+                {transform:['translateY(0)','translateY(55%)','translateY(0)']},
+            {duration:700, iterations:2}
+            )
+        }
+       
+
+       
          
         document.querySelector(".button").addEventListener("click", function(e){
             const userChoice=e.target.value
@@ -59,37 +75,46 @@
                  document.querySelector(".you").innerHTML=""
             }
             else{ 
-                document.querySelector(".you").innerHTML=userChoice;                
-                document.querySelector(".comp").innerHTML=computer;  
+                anim()
+                setTimeout(()=>{   
+                     document.querySelector(".you").innerHTML=userChoice;                
+                    document.querySelector(".comp").innerHTML=computer;
+                },1400)
+                document.querySelector(".you").innerHTML="👊";                
+                document.querySelector(".comp").innerHTML="👊";
+                result.innerHTML="Game Result";
+            
             }
 
             if(userChoice==computer){
-                result.innerHTML="Game Draw";
+                setTimeout(()=>{
+                    result.innerHTML="Game Draw";
+                },1400)
             }
             else{
                 const winner=function(){
                     let win=true
-                    if(userChoice=="Rock"){
-                        if(computer=="Paper"){
+                    if(userChoice=="👊"){
+                        if(computer=="🖐️"){
                             win=false
                         }
-                        else if(computer=="Scissor"){
+                        else if(computer=="✌️"){
                             win=true
                         }
                     }
-                    if(userChoice=="Paper"){
-                        if(computer=="Rock"){
+                    if(userChoice=="🖐️"){
+                        if(computer=="👊"){
                             win=true
                         }
-                        else if(computer=="Scissor"){
+                        else if(computer=="✌️"){
                             win=false
                         }
                     }
-                    if(userChoice=="Scissor"){
-                        if(computer=="Paper"){
+                    if(userChoice=="✌️"){
+                        if(computer=="🖐️"){
                             win=true
                         }
-                        else if(computer=="Rock"){
+                        else if(computer=="👊"){
                             win=false
                         }
                     }
@@ -114,9 +139,11 @@
                     }
                 }
                 
+               setTimeout(()=>{
                 winner()
+               },1400)
             }
-            // result1()
+            result1()
         }) 
         
         // function result1(){
